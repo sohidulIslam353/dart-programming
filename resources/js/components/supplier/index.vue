@@ -5,14 +5,14 @@
           <li class="breadcrumb-item">
             <a href="#">Dashboard</a>
           </li>
-          <li class="breadcrumb-item active">All Employee</li>
+          <li class="breadcrumb-item active">All Suppliers</li>
         </ol>
         <!-- Icon Cards-->
        <div class="row card container">
           <div class="card-header">
             <i class="fas fa-chart-area"></i>
-            Employee Insert 
-            <router-link to="/store-employee" class="btn btn-sm btn-info" id="add_new"> Add New</router-link>
+            Supplier Insert 
+            <router-link to="/store-supplier" class="btn btn-sm btn-info" id="add_new"> Add New</router-link>
           </div>
           <div class="card-body">
             <div class="card-body">
@@ -34,17 +34,17 @@
                 
                   <tbody>
 
-                    <tr v-for="employee in filtersearch" :key="employee.id">
-                      <td>{{ employee.name }}</td>
-                      <td><img :src="employee.photo" id="em_photo"></td>
-                      <td>{{ employee.phone }}</td>
-                      <td>{{ employee.salary }}</td>
-                      <td>{{ employee.joining_date }}</td>
+                    <tr v-for="supplier in filtersearch" :key="supplier.id">
+                      <td>{{ supplier.name }}</td>
+                      <td><img :src="supplier.photo" id="em_photo"></td>
+                      <td>{{ supplier.phone }}</td>
+                      <td>{{ supplier.shopname }}</td>
+                      <td>{{ supplier.address }}</td>
                       <td>
-                        <router-link :to="{name: 'edit-employee', params:{id: employee.id} }" class="btn btn-sm btn-info">Edit</router-link>
-                        <a @click="deleteEmployee(employee.id)" class="btn btn-sm btn-danger">Delete</a>
+                        <router-link :to="{name: 'edit-supplier', params:{id: supplier.id} }" class="btn btn-sm btn-info">Edit</router-link>
+                        <a @click="deleteSupplier(supplier.id)" class="btn btn-sm btn-danger">Delete</a>
                       </td>
-                    </tr>
+                    </tr> 
         
                   </tbody>
                 </table>
@@ -66,30 +66,29 @@
         },
 
         created(){
-        this.allEmployee();
+        this.allSupplier();
         },
 
         data(){
           return{
-            employees:[],
+            suppliers:[],
             searchTerm:'',         
           }
         },
        computed:{
          filtersearch(){
-          return this.employees.filter(employee => {
-             return employee.phone.match(this.searchTerm)
-             return employee.name.match(this.searchTerm)
+          return this.suppliers.filter(supplier => {
+             return supplier.phone.match(this.searchTerm)
            })
          }
        },
         methods:{
-          allEmployee(){
-            axios.get('/api/employee/')
-            .then(({data}) => (this.employees = data))
+          allSupplier(){
+            axios.get('/api/supplier/')
+            .then(({data}) => (this.suppliers = data))
             .catch()
           },
-          deleteEmployee(id){
+          deleteSupplier(id){
             Swal.fire({
             title: 'Are you sure?',
             text: "You won't be able to revert this!",
@@ -100,14 +99,14 @@
             confirmButtonText: 'Yes, delete it!'
           }).then((result) => {
             if (result.value) {
-              axios.delete('/api/employee/'+id)
+              axios.delete('/api/supplier/'+id)
               .then(()=>{
-                 this.employees = this.employees.filter(employee =>{
-                    return employee.id !=id
+                 this.suppliers = this.suppliers.filter(supplier =>{
+                    return supplier.id !=id
                  })
               })
               .catch(()=>{
-                 this.$router.push({name: 'employee'})
+                 this.$router.push({name: 'supplier'})
               })
               Swal.fire(
                 'Deleted!',

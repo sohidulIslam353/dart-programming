@@ -113,8 +113,18 @@
           <span>Suppliers</span>
         </a>
         <div class="dropdown-menu" aria-labelledby="pagesDropdown">
-          <a class="dropdown-item" href="login.html">Add Supplier</a>
-          <a class="dropdown-item" href="login.html">All Supplier</a>
+          <router-link class="dropdown-item" to="/store-supplier">Add Supplier</router-link>
+          <router-link class="dropdown-item" to="/supplier">All Supplier</router-link>
+        </div>
+      </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <i class="fas fa-fw fa-folder"></i>
+          <span>Categories</span>
+        </a>
+        <div class="dropdown-menu" aria-labelledby="pagesDropdown">
+          <router-link class="dropdown-item" to="/store-category">Add Category</router-link>
+          <router-link class="dropdown-item" to="/category">All Category</router-link>
         </div>
       </li>
       <li class="nav-item">

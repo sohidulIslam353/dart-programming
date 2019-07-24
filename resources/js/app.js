@@ -32,6 +32,8 @@ window.Toast = Toast;
 //sweet alert end
 
 
+
+
 const router = new VueRouter({
   routes,
   mode: 'history' 

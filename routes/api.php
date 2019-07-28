@@ -38,3 +38,4 @@ Route::get('/cart/product','Api\CartController@CartProduct');
 Route::get('/remove/cart/{id}','Api\CartController@removeCart');
 Route::get('/increment/{id}','Api\CartController@Increment');
 Route::get('/decrement/{id}','Api\CartController@Decrement');
+Route::get('/vats','Api\CartController@Vats');

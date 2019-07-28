@@ -14,7 +14,7 @@
                     Expense Insert 
                     <a class="btn btn-sm btn-info" data-toggle="modal" data-target="#exampleModal" id="add_new"> Add Customer</a>
                   </div>
-                  <form>
+                 
                     <div class="card-body">
                        <table class="table table-sm table-striped">
                         <thead>
@@ -50,44 +50,44 @@
                       <ul class="list-group">
                         <li class="list-group-item d-flex justify-content-between align-items-center">
                          Total Quantity:
-                          <strong>12</strong>
+                          <strong>{{ qty }}</strong>
                         </li>
                         <li class="list-group-item d-flex justify-content-between align-items-center">
                          Sub Total:
-                          <strong>100000</strong>
+                          <strong>{{ subtotal }} Tk</strong>
                         </li>
                         <li class="list-group-item d-flex justify-content-between align-items-center">
                           Vat:
-                         <strong> 5% </strong>
+                         <strong> {{ vats.vat }} % </strong>
                         </li>
                          <li class="list-group-item d-flex justify-content-between align-items-center">
                           Total:
-                         <strong> 120000 </strong>
+                         <strong> {{ subtotal*vats.vat /100 +subtotal }} Tk</strong>
                         </li>
                       </ul>
                       <br>
+                    <form @submit.prevent="orderdone">
                       <label>Customer Name</label>
-                      <select class="form-control" >
-                         <option v-for="customer in customers">{{ customer.name }}</option>
+                      <select class="form-control" v-model="customer_id">
+                         <option :value="customer.id" v-for="customer in customers">{{ customer.name }}</option>
                       </select>
 
                       <label>Pay</label>
-                      <input type="" class="form-control">
+                      <input type="text" class="form-control" required="" v-model="pay">
 
                       <label>Due</label>
-                      <input type="" class="form-control">
+                      <input type="text" class="form-control" required="" v-model="due">
 
                       <label>Pay By </label>
-                      <select class="form-control" >
-                         <option>Hand Cash</option>
-                         <option>Cheaque</option>
-                         <option>Gift Card</option>
+                      <select class="form-control" v-model="payby">
+                         <option value="HandCash">Hand Cash</option>
+                         <option value="Cheaque">Cheaque</option>
+                         <option value="GiftCard">Gift Card</option>
                       </select>
                       <br>
                       <button type="submit" class="btn btn-success">Submit</button>
-                    </div>
-                    
-                  </form>
+                    </form>
+                  </div>
               </div>
              <!--customer add modal--> 
              <!-- Modal -->
@@ -239,6 +239,7 @@
          this.allCategory();
          this.allCustomer();
          this.cartProduct();
+         this.vat();
          Reload.$on('AfterAdd', ()=>{
            this.cartProduct();
          })
@@ -254,6 +255,10 @@
               photo :'',
               phone:'',
             },
+            customer_id:'',
+            pay:'',
+            due:'',
+            payby:'',
             products:[],
             categories:'',
             getproducts:[],
@@ -261,7 +266,8 @@
             getsearchTerm:'',
             customers:'',
             errors:'',
-            cards:[]
+            cards:[],
+            vats:''
           }
         },
         computed:{
@@ -274,6 +280,21 @@
           return this.getproducts.filter(getproduct => {
              return getproduct.product_name.match(this.getsearchTerm)
            })
+         },
+         qty(){
+           let sum=0;
+           for(let i =0; i < this.cards.length; i++ ){
+              sum += (parseFloat(this.cards[i].pro_quantity));
+           }
+           return sum;
+         },
+
+         subtotal(){
+            let sum=0;
+              for(let i =0; i < this.cards.length; i++){
+              sum += (parseFloat(this.cards[i].pro_quantity) * parseFloat(this.cards[i].product_price));
+            }
+            return sum;
          },
        },
         methods:{   
@@ -311,7 +332,14 @@
                Notification.success()
             })
           },
-
+          vat(){
+            axios.get('/api/vats')
+             .then(({data}) => (this.vats = data))
+             .catch()
+          },
+          orderdone(){
+            alert('done');
+          },
           //end cart methods
           allProduct(){
             axios.get('/api/product')

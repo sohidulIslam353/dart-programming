@@ -84,6 +84,7 @@
                          <option value="Cheaque">Cheaque</option>
                          <option value="GiftCard">Gift Card</option>
                       </select>
+
                       <br>
                       <button type="submit" class="btn btn-success">Submit</button>
                     </form>
@@ -338,7 +339,15 @@
              .catch()
           },
           orderdone(){
-            alert('done');
+            let total = this.subtotal*this.vats.vat /100 +this.subtotal;
+
+            var data = {qty:this.qty, subtotal:this.subtotal, customer_id:this.customer_id, payby:this.payby, pay:this.pay, due:this.due, vat:this.vats.vat, total:total}
+
+            axios.post('/api/orderdone/',data)
+            .then(() => {
+               Notification.success()
+               this.$router.push({ name: 'home' })
+            })
           },
           //end cart methods
           allProduct(){

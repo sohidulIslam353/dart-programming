@@ -181,12 +181,28 @@
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           <i class="fas fa-fw fa-folder"></i>
+          <span>Orders</span>
+        </a>
+        <div class="dropdown-menu" aria-labelledby="pagesDropdown">
+          <router-link class="dropdown-item" to="/order">Today Order</router-link>
+          <router-link class="dropdown-item" to="/searchorder">Search</router-link>
+        </div>
+      </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="pagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <i class="fas fa-fw fa-folder"></i>
           <span>Reports</span>
         </a>
         <div class="dropdown-menu" aria-labelledby="pagesDropdown">
           <router-link class="dropdown-item" to="/given-salary">One</router-link>
           <router-link class="dropdown-item" to="/salary">Two</router-link>
         </div>
+      </li>
+      <li class="nav-item">
+        <router-link class="nav-link" to="#">
+          <i class="fas fa-fw fa-table"></i>
+          <span>Settings</span>
+        </router-link>
       </li>
     </ul>
 

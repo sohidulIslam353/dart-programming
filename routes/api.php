@@ -39,3 +39,11 @@ Route::get('/remove/cart/{id}','Api\CartController@removeCart');
 Route::get('/increment/{id}','Api\CartController@Increment');
 Route::get('/decrement/{id}','Api\CartController@Decrement');
 Route::get('/vats','Api\CartController@Vats');
+
+Route::post('/orderdone','Api\PosController@OrderDone');
+
+Route::get('/orders','Api\OrderController@TodayOrder');
+Route::get('/order/details/{id}','Api\OrderController@OrderDetails');
+Route::get('/order/orderdetails/{id}','Api\OrderController@OrderDetailsAll');
+Route::post('/search/order/','Api\OrderController@SearchOrderDate');
+Route::post('/search/month/','Api\OrderController@SearchMonth');

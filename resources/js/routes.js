@@ -39,6 +39,10 @@ let customer = require('./components/customer/index.vue').default;
 let editcustomer = require('./components/customer/edit.vue').default;
 //point of sale
 let pos = require('./components/pos/pointofsale.vue').default;
+//order--
+let order = require('./components/order/order.vue').default;
+let vieworder = require('./components/order/vieworder.vue').default;
+let searchorder  = require('./components/order/search.vue').default;
 
 let home = require('./components/home.vue').default;
 
@@ -84,4 +88,8 @@ export const routes = [
    { path: '/edit-customer/:id', component: editcustomer, name:'edit-customer' },
    //point of sale--
    { path: '/pos', component: pos, name:'pos' },
+   //order
+   { path: '/order', component: order, name:'order' },
+   { path: '/view-order/:id', component: vieworder, name:'view-order' },
+   { path: '/searchorder', component: searchorder, name:'searchorder' },
 ]
